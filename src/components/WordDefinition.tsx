@@ -4,39 +4,45 @@ import { useWordStore } from "../store/wordStore";
 import { fetchDefinition } from "../utils/fetchDefinition";
 
 interface WordDefinitionProps {
-	word: string;
+  word: string;
 }
 
 const WordDefinition: React.FC<WordDefinitionProps> = ({ word }) => {
-	const { definitionHTML, setDefinitionHTML } = useWordStore();
-	const [loading, setLoading] = useState(true);
+  const { definitionHTML, setDefinitionHTML } = useWordStore();
+  const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const fetchWord = async () => {
-			setLoading(true);
-			await fetchDefinition(word);
-			setLoading(false);
+  useEffect(() => {
+    const fetchWord = async () => {
+      setLoading(true);
+      await fetchDefinition(word);
+      setLoading(false);
 
-			// Update links after HTML is rendered
-			const container = document.getElementById("definition");
-			if (container) {
-				const links = container.querySelectorAll("a");
-				for (const link of links) {
-					const href = link.getAttribute("href");
+      // Update links after HTML is rendered
+      const container = document.getElementById("definition");
+      if (container) {
+        const links = container.querySelectorAll("a");
+        for (const link of links) {
+          const rel = link.getAttribute("rel");
 
-					// If the link is external, open it in a new tab
-					if (href?.startsWith("http")) {
-						link.setAttribute("target", "_blank");
-						link.setAttribute("rel", "noopener noreferrer");
-					}
-				}
-			}
-		};
+          // Skip internal links (e.g., Previous and Next)
+          if (rel === "internal") {
+            continue;
+          }
 
-		fetchWord();
-	}, [word]);
+          // For other links, set to open in a new tab
+          const href = link.getAttribute("href");
+          if (href) {
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer");
+          }
+        }
+      }
+    };
 
-	return (
+    fetchWord();
+  }, [word]);
+
+  return (
     <div>
       {loading ? (
         <p>Loading definition...</p>
@@ -44,7 +50,7 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({ word }) => {
         <p>{definitionHTML}</p>
       ) : (
         <div
-					id="definition"
+					id='definition'
 					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 					dangerouslySetInnerHTML={{ __html: definitionHTML ?? "" }}
 				/>
