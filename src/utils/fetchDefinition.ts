@@ -10,13 +10,7 @@ export async function fetchDefinition(word: string) {
 	const { setDefinitionHTML } = useWordStore.getState();
 	try {
 		const response = await fetch(
-			`https://api.wikimedia.org/core/v1/wiktionary/en/page/${word}/html`,
-			{
-				headers: {
-					Authorization: `Bearer ${import.meta.env.PUBLIC_WIKIPEDIA_ACCESS_TOKEN}`,
-					"Api-User-Agent": `${import.meta.env.PUBLIC_WIKIPEDIA_APP_NAME}`,
-				},
-			},
+			`https://api.wikimedia.org/core/v1/wiktionary/en/page/${word}/html`
 		);
 		console.log({response});
 		if (!response.ok) {
