@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { useWordStore, rareWords } from "~/store/wordStore";
+import { fetchDefinition } from "~/utils/fetchDefinition";
+
+const params = Astro.params;
+const { setWordFromTitle, definitionHTML } = useWordStore.getState();
+
+const word = params.title ?? "";
+setWordFromTitle(word);
+
+const index = rareWords.indexOf(word);
+const previousWord =
+  rareWords[(index - 1 + rareWords.length) % rareWords.length];
+const nextWord = rareWords[(index + 1) % rareWords.length];
+
+// Fetch definition for the current word
+fetchDefinition(word);
+---
+
+<Layout
+  title={`Word: ${word}`}
+  description={`Learn about the word "${word}"`}
+  previousWord={previousWord}
+  nextWord={nextWord}
+>
+  <h2>Word: {word}</h2>
+  <div id='definition' set:html={definitionHTML} />
+</Layout>

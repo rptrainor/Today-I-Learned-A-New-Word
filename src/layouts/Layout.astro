@@ -1,50 +1,76 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
-	title: string;
+  title: string;
+  description: string;
+  previousWord: string;
+  nextWord: string;
 }
 
-const { title } = Astro.props;
+const { title, description, previousWord, nextWord } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content={description} />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body>
+    <header class='header'>
+      <h1>Ready for your next word?</h1>
+      <nav class='nav'>
+        <a href={`/${previousWord}`}>Previous</a>
+        <a href={`/${nextWord}`}>Next</a>
+      </nav>
+    </header>
+    <main class='main'>
+      <slot />
+    </main>
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  html {
+    font-family: system-ui, sans-serif;
+    background: #f5f5f5;
+    color: #2a194d;
+    font-size: 18px;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    background-color: #f5f5f5;
+    color: #2a194d;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .nav {
+    margin-top: 0.5rem;
+  }
+
+  .nav a {
+    color: #4b00e6;
+    margin: 0 0.5rem;
+    text-decoration: none;
+  }
+
+  .nav a:hover {
+    text-decoration: underline;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+
 </style>
