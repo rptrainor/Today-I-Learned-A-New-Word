@@ -1,18 +1,19 @@
 import { create } from "zustand";
 
 const rareWords = [
-	"sesquipedalian",
-	"quidnunc",
-	"gasconade",
-	"floccinaucinihilipilification",
-	"defenestration",
-	"callipygian",
-	"eucatastrophe",
-	"petrichor",
-	"phantasmagoria",
-	"mellifluous",
-	"sagacious",
-	"abnegation",
+	"arent",
+	"parching",
+	"grindy",
+	"repetition",
+	"atelic",
+	"contranym",
+	"doublet",
+	"endonym",
+	"factitive",
+	"haplology",
+	"idiom",
+	"imparisyllabic",
+	"infix",
 ];
 
 type WordState = {

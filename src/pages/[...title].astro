@@ -27,3 +27,18 @@ fetchDefinition(word);
   <h2>Word: {word}</h2>
   <div id='definition' set:html={definitionHTML} />
 </Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("definition");
+    if (!container) return;
+
+    const links = container.querySelectorAll("a");
+    links.forEach((link) => {
+      if (link.hostname !== window.location.hostname) {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+      }
+    });
+  });
+</script>

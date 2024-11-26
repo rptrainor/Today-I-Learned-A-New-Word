@@ -12,6 +12,7 @@ export async function fetchDefinition(word: string) {
 		const response = await fetch(
 			`https://api.wikimedia.org/core/v1/wiktionary/en/page/${word}/html`,
 		);
+		console.log({response});
 		if (!response.ok) {
 			setDefinitionHTML("<p>No definition found.</p>");
 			return;
