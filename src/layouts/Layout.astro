@@ -9,6 +9,8 @@ interface Props {
 }
 
 const { title, description, previousWord, nextWord } = Astro.props;
+console.log("previousWord", previousWord);
+console.log("nextWord", nextWord);
 ---
 
 <!doctype html>
@@ -26,8 +28,8 @@ const { title, description, previousWord, nextWord } = Astro.props;
     <header class='header'>
       <h1>Ready for your next word?</h1>
       <nav class='nav'>
-        <a href={`/${previousWord}`}>Previous</a>
-        <a href={`/${nextWord}`}>Next</a>
+        <a href={`/${previousWord}`} rel='internal'>Previous</a>
+        <a href={`/${nextWord}`} rel='internal'>Next</a>
       </nav>
     </header>
     <main class='main'>
@@ -72,5 +74,4 @@ const { title, description, previousWord, nextWord } = Astro.props;
   .main {
     padding: 1rem;
   }
-
 </style>
