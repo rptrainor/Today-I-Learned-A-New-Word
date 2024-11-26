@@ -21,5 +21,6 @@ useWordStore.setState({ currentWord: word });
   nextWord={nextWord}
 >
   <h2>Word: {word}</h2>
-  <WordDefinition word={word} client:visible />
+  <WordDefinition word={word} client:only='react' />
 </Layout>
+

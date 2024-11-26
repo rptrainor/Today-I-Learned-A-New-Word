@@ -4,19 +4,15 @@ import WordDefinition from "~/components/WordDefinition";
 import { useWordStore, rareWords } from "~/store/wordStore";
 import { fetchDefinition } from "~/utils/fetchDefinition";
 
-const { currentWord, setDefinitionHTML } = useWordStore.getState();
-const randomIndex = 0; // Or use Math.random for a random index
+const randomIndex = Math.floor(Math.random() * rareWords.length);
 const selectedWord = rareWords[randomIndex];
 
-// Set the selected word in the global store
 useWordStore.setState({
   currentWord: selectedWord,
 });
 
-// Fetch definition server-side for initial render
 await fetchDefinition(selectedWord);
 
-// Determine navigation links
 const previousWord =
   rareWords[(randomIndex - 1 + rareWords.length) % rareWords.length];
 const nextWord = rareWords[(randomIndex + 1) % rareWords.length];
@@ -29,5 +25,5 @@ const nextWord = rareWords[(randomIndex + 1) % rareWords.length];
   nextWord={nextWord}
 >
   <h2>Word: {selectedWord}</h2>
-  <WordDefinition word={selectedWord} client:visible />
+  <WordDefinition word={selectedWord} client:only='react' />
 </Layout>

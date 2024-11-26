@@ -8,7 +8,7 @@ interface WordDefinitionProps {
 }
 
 const WordDefinition: React.FC<WordDefinitionProps> = ({ word }) => {
-  const { definitionHTML, setDefinitionHTML } = useWordStore();
+  const { definitionHTML } = useWordStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,26 +17,17 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({ word }) => {
       await fetchDefinition(word);
       setLoading(false);
 
-      // Update links after HTML is rendered
-      const container = document.getElementById("definition");
-      if (container) {
-        const links = container.querySelectorAll("a");
-        for (const link of links) {
-          const rel = link.getAttribute("rel");
-
-          // Skip internal links (e.g., Previous and Next)
-          if (rel === "internal") {
-            continue;
-          }
-
-          // For other links, set to open in a new tab
-          const href = link.getAttribute("href");
-          if (href) {
+      // Process links after HTML is injected
+      setTimeout(() => {
+        const container = document.getElementById("definition");
+        if (container) {
+          const links = container.querySelectorAll("a");
+          for (const link of links) {
             link.setAttribute("target", "_blank");
             link.setAttribute("rel", "noopener noreferrer");
           }
         }
-      }
+      }, 0); // Timeout ensures DOM updates are complete
     };
 
     fetchWord();
@@ -50,10 +41,10 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({ word }) => {
         <p>{definitionHTML}</p>
       ) : (
         <div
-					id='definition'
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-					dangerouslySetInnerHTML={{ __html: definitionHTML ?? "" }}
-				/>
+          id='definition'
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+          dangerouslySetInnerHTML={{ __html: definitionHTML ?? "" }}
+        />
       )}
     </div>
   );
