@@ -12,6 +12,8 @@ const previousWord =
 const nextWord = rareWords[(index + 1) % rareWords.length];
 
 useWordStore.setState({ currentWord: word });
+
+console.log("I AM ON THE SERVER in [...title]");
 ---
 
 <Layout
@@ -20,7 +22,6 @@ useWordStore.setState({ currentWord: word });
   previousWord={previousWord}
   nextWord={nextWord}
 >
-  <h2>Word: {word}</h2>
-  <WordDefinition word={word} client:only='react' />
+  <h2>Word: {word}!</h2>
+  <WordDefinition word={word} client:load />
 </Layout>
-

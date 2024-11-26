@@ -16,6 +16,8 @@ await fetchDefinition(selectedWord);
 const previousWord =
   rareWords[(randomIndex - 1 + rareWords.length) % rareWords.length];
 const nextWord = rareWords[(randomIndex + 1) % rareWords.length];
+
+console.log("I AM ON THE SERVER in INDEX");
 ---
 
 <Layout
