@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const rareWords = [
 	"arent",
+	"disanthropy",
 	"parching",
 	"grindy",
 	"repetition",
@@ -14,6 +15,23 @@ const rareWords = [
 	"idiom",
 	"imparisyllabic",
 	"infix",
+	"fisherfolk",
+	"gudgeon",
+	"canonize",
+	"aeviternity",
+	"sciolism",
+	"bungle",
+	"quicken",
+	"doolally",
+	"apprehend",
+	"gobo",
+	"nummular",
+	"minstrel",
+	"nopalery",
+	"whilst",
+	"bonhomie",
+	"alight",
+	"zythology",
 ];
 
 type WordState = {
